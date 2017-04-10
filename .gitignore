@@ -1,0 +1,19 @@
+dist/
+node_modules/
+npm-debug.log*
+
+# IDEs
+.idea/
+jsconfig.json
+.vscode/
+
+# Misc
+tmp/
+
+# Ignore Javascript files
+*.js
+*.js.map
+
+# Mac OSX Finder files.
+**/.DS_Store
+.DS_Store

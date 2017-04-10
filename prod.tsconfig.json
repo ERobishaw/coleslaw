@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "declaration": true,
+    "listFiles": true,
+    "skipLibCheck": true,
+    "sourceMap": false
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
