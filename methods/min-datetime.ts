@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
+import {MethodExpression} from '../expressions/method-expression';
 
 export class MinDateTime extends MethodExpression {
-  public methodName: string = "mindatetime";
+  public methodName: string = 'mindatetime';
 }

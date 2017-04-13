@@ -1,4 +1,4 @@
-import {ExpressionVisitor} from "./expression-visitor";
+import {ExpressionVisitor} from './expression-visitor';
 
 export interface ExpressionInterface {
   accept(v: ExpressionVisitor): void;

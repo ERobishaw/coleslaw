@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class TotalOffsetMinutes extends MethodExpression {
   constructor(ex: ExpressionInterface) {
@@ -8,5 +8,5 @@ export class TotalOffsetMinutes extends MethodExpression {
     this.expressions = [ex];
   }
 
-  public methodName: string = "totaloffsetminutes";
+  public methodName: string = 'totaloffsetminutes';
 }

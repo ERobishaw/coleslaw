@@ -1,5 +1,5 @@
-import {ExpressionInterface} from "./expression-interface";
-import {ExpressionVisitor} from "./expression-visitor";
+import {ExpressionInterface} from './expression-interface';
+import {ExpressionVisitor} from './expression-visitor';
 
 export class MethodExpression implements ExpressionInterface {
   public methodName: string;

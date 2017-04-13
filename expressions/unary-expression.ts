@@ -1,9 +1,9 @@
-import {ExpressionInterface} from "./expression-interface";
-import {ExpressionVisitor} from "./expression-visitor";
-import {ODataOperator} from "../interfaces/o-data-expression";
+import {ExpressionInterface} from './expression-interface';
+import {ExpressionVisitor} from './expression-visitor';
+import {ODataOperator} from '../interfaces/o-data-expression';
 
 export class UnaryExpression implements ExpressionInterface, ODataOperator {
-  public operator: string = "";
+  public operator: string = '';
 
   constructor(private left: ExpressionInterface) {
   }

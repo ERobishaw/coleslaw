@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class IsOf extends MethodExpression {
   constructor(left: ExpressionInterface)
@@ -13,5 +13,5 @@ export class IsOf extends MethodExpression {
     }
   }
 
-  public methodName: string = "isof";
+  public methodName: string = 'isof';
 }

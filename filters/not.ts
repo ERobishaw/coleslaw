@@ -1,5 +1,5 @@
-import {UnaryExpression} from "../expressions/unary-expression";
+import {UnaryExpression} from '../expressions/unary-expression';
 
 export class Not extends UnaryExpression {
-  public operator: string = "not ";
+  public operator: string = 'not ';
 }

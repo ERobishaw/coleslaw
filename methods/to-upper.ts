@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class ToUpper extends MethodExpression {
   constructor(ex: ExpressionInterface) {
@@ -8,5 +8,5 @@ export class ToUpper extends MethodExpression {
     this.expressions = [ex];
   }
 
-  public methodName: string = "toupper";
+  public methodName: string = 'toupper';
 }

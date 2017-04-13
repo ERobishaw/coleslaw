@@ -1,6 +1,6 @@
-import {ExpressionInterface} from "./expression-interface";
-import {ExpressionVisitor} from "./expression-visitor";
-import {ODataOperator} from "../interfaces/o-data-expression";
+import {ExpressionInterface} from './expression-interface';
+import {ExpressionVisitor} from './expression-visitor';
+import {ODataOperator} from '../interfaces/o-data-expression';
 
 export class BinaryExpression implements ExpressionInterface, ODataOperator {
   public operator: string;

@@ -1,6 +1,6 @@
 {
-  "name": "coleslaw",
-  "version": "0.0.5",
+  "name": "@angry-yard/coleslaw",
+  "version": "0.0.8",
   "description": "Strongly typed OData library written in TypeScript",
   "repository": {
     "type": "git",
@@ -23,8 +23,8 @@
     "compile": "tsc -p prod.tsconfig.json"
   },
   "dependencies": {
-    "@angular/http": "4.0.1",
-    "rxjs": "5.3.0"
+    "@angular/http": "^4.0.2",
+    "rxjs": "^5.3.0"
   },
   "devDependencies": {
     "typescript": "2.2.2"

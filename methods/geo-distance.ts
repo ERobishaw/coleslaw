@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class GeoDistance extends MethodExpression {
   constructor(left: ExpressionInterface, right: ExpressionInterface) {
@@ -8,5 +8,5 @@ export class GeoDistance extends MethodExpression {
     this.expressions = [left, right];
   }
 
-  public methodName: string = "geo.distance";
+  public methodName: string = 'geo.distance';
 }

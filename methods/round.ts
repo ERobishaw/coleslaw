@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class Round extends MethodExpression {
   constructor(ex: ExpressionInterface) {
@@ -8,5 +8,5 @@ export class Round extends MethodExpression {
     this.expressions = [ex];
   }
 
-  public methodName: string = "round";
+  public methodName: string = 'round';
 }

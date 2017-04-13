@@ -1,5 +1,5 @@
-import {MethodExpression} from "../expressions/method-expression";
-import {ExpressionInterface} from "../expressions/expression-interface";
+import {MethodExpression} from '../expressions/method-expression';
+import {ExpressionInterface} from '../expressions/expression-interface';
 
 export class Cast extends MethodExpression {
   constructor(left: ExpressionInterface)
@@ -14,5 +14,5 @@ export class Cast extends MethodExpression {
     }
   }
 
-  public methodName: string = "cast";
+  public methodName: string = 'cast';
 }

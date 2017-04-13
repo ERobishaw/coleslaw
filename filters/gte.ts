@@ -1,5 +1,5 @@
-import {BinaryExpression} from "../expressions/binary-expression";
+import {BinaryExpression} from '../expressions/binary-expression';
 
 export class GreaterThanOrEqualTo extends BinaryExpression {
-  public operator: string = "ge";
+  public operator: string = 'ge';
 }

@@ -1,5 +1,5 @@
-import {BinaryExpression} from "../expressions/binary-expression";
+import {BinaryExpression} from '../expressions/binary-expression';
 
 export class And extends BinaryExpression {
-  public operator: string = "and";
+  public operator: string = 'and';
 }
