@@ -1,6 +1,6 @@
 {
   "name": "@angry-yard/coleslaw",
-  "version": "0.0.8",
+  "version": "0.0.18",
   "description": "Strongly typed OData library written in TypeScript",
   "repository": {
     "type": "git",
@@ -16,15 +16,13 @@
   },
   "homepage": "https://github.com/angry-yard/coleslaw#readme",
   "scripts": {
-    "build": "npm run clearDist && npm run compile && npm run copyFiles",
-    "copyFiles": "copy README.md dist && copy package.json dist",
-    "clearDist": "del dist\\*.* /s /q",
-    "publish": "npm publish ./dist",
+    "build": "npm run clear-dist && npm run compile && npm run copy-files",
+    "copy-files": "copy README.md dist && copy package.json dist",
+    "clear-dist": "del dist\\*.* /s /q",
+    "publish": "npm publish ./dist --access public",
     "compile": "tsc -p prod.tsconfig.json"
   },
   "dependencies": {
-    "@angular/http": "^4.0.2",
-    "rxjs": "^5.3.0"
   },
   "devDependencies": {
     "typescript": "2.2.2"

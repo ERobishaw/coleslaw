@@ -1,1 +1,1 @@
-Coleslaw is an OData query creator written for Angular 4.
+Coleslaw is an OData query creator.

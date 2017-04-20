@@ -1,14 +1,10 @@
-import {Http, Response} from "@angular/http";
-
-import {Observable} from "rxjs";
-
-import {Expression} from "./expression";
-import {ExpressionInterface} from "./expressions/expression-interface";
-import {ODataVisitor} from "./odata-visitor";
-import {And} from "./filters/and";
-import {ODataSettings} from "./interfaces/o-data-settings";
-import {OrderBy} from "./operators/order-by";
-import {SortDirection} from "./operators/sort-direction";
+import {Expression} from './expression';
+import {ExpressionInterface} from './expressions/expression-interface';
+import {ODataVisitor} from './odata-visitor';
+import {And} from './filters/and';
+import {ODataSettings} from './interfaces/o-data-settings';
+import {OrderBy} from './operators/order-by';
+import {SortDirection} from './operators/sort-direction';
 
 export class RequestBuilder<T> {
     private $filters: ExpressionInterface[] = [];
@@ -20,114 +16,116 @@ export class RequestBuilder<T> {
     private $expand: string;
     private $count: string;
     private $search: string;
-    private oDataString: string;
+    protected oDataString: string;
 
-    constructor(private http: Http, private url: string) {
-    }
-
-    public any<TValue>(param: (type: T) => any[], ex: ExpressionInterface): RequestBuilder<T> {
+    public any<TValue>(param: (type: T) => any[], ex: ExpressionInterface): this {
         this.$filters.push(Expression.any(param, ex));
         return this;
     }
 
-    public filter(value: ExpressionInterface): RequestBuilder<T> {
+    public filter(value: ExpressionInterface): this {
         this.$filters.push(value);
         return this;
     }
 
-    public equals<TValue>(param: (type: T) => TValue, value: ExpressionInterface): RequestBuilder<T>
-    public equals<TValue>(param: (type: T) => TValue, value: TValue): RequestBuilder<T>
-    public equals<TValue>(param: (type: T) => TValue, value: any): RequestBuilder<T> {
+    public equals<TValue>(param: (type: T) => TValue, value: ExpressionInterface): this
+    public equals<TValue>(param: (type: T) => TValue, value: TValue): this
+    public equals<TValue>(param: (type: T) => TValue, value: any): this {
         this.$filters.push(Expression.equals(param, value));
         return this;
     }
 
-    public contains<TValue>(param: (type: T) => TValue, value: ExpressionInterface): RequestBuilder<T>
-    public contains<TValue>(param: (type: T) => TValue, value: TValue): RequestBuilder<T> {
+    public contains<TValue>(param: (type: T) => TValue, value: ExpressionInterface): this
+    public contains<TValue>(param: (type: T) => TValue, value: TValue): this {
         this.$filters.push(Expression.contains(param, value));
         return this;
     }
 
-    public lt<TValue>(param: (type: T) => TValue, value: any): RequestBuilder<T> {
+    public lt<TValue>(param: (type: T) => TValue, value: any): this {
         this.$filters.push(Expression.lt(param, value));
         return this;
     }
 
-    public lte<TValue>(param: (type: T) => TValue, value: any): RequestBuilder<T> {
+    public lte<TValue>(param: (type: T) => TValue, value: any): this {
         this.$filters.push(Expression.lte(param, value));
         return this;
     }
 
-    public gt<TValue>(param: (type: T) => TValue, value: any): RequestBuilder<T> {
+    public gt<TValue>(param: (type: T) => TValue, value: any): this {
         this.$filters.push(Expression.gt(param, value));
         return this;
     }
 
-    public gte<TValue>(param: (type: T) => TValue, value: any): RequestBuilder<T> {
+    public gte<TValue>(param: (type: T) => TValue, value: any): this {
         this.$filters.push(Expression.gte(param, value));
         return this;
     }
 
-    public multiply(left: number, right: number): RequestBuilder<T> {
+    public multiply(left: number, right: number): this {
         this.$filters.push(Expression.multiply(left, right));
         return this;
     }
 
-    public top(limit: number): RequestBuilder<T> {
+    public top(limit: number): this {
         this.$top = Expression.top(limit);
         return this;
     }
 
-    public skip(num: number): RequestBuilder<T> {
+    public skip(num: number): this {
         this.$skip = Expression.skip(num);
         return this;
     }
 
-    public inlineCount(): RequestBuilder<T> {
-        this.$inlineCount = "allpages";
+    public inlineCount(): this {
+        this.$inlineCount = 'allpages';
         return this;
     }
 
-    public orderByBuilder(...orderBys: OrderBy[]): RequestBuilder<T> {
-        let orderByStatement: Array<string> = [];
-
-        orderBys.forEach(orderBy => {
-            orderByStatement.push(`${this.expressionToString(orderBy.property)} ${SortDirection[orderBy.sortDirection]}`);
-        });
-
-        this.$orderBy = orderByStatement.join();
-        return this;
-    }
-
-    public orderBy<TValue>(...params: ((type: T) => TValue)[]): RequestBuilder<T> {
+    public orderBy<TValue>(...params: ((type: T) => TValue)[]): this {
         this.$orderBy = this.propertiesToStrings(...params).join();
         return this;
     }
 
-    public orderByDescending<TValue>(...params: ((type: T) => TValue)[]): RequestBuilder<T> {
+    public orderByBuilder(orderBys: OrderBy[]): this {
+        let orderBy: Array<string> = [];
+
+        orderBys.forEach(t => {
+            let desc = '';
+
+            if (t.sortDirection === SortDirection.Desc) desc = ' desc';
+
+            orderBy.push(`${this.expressionToString(t)}${desc}`);
+        });
+
+        this.$orderBy = 'orderBy ' + orderBy.join();
+
+        return this;
+    }
+
+    public orderByDescending<TValue>(...params: ((type: T) => TValue)[]): this {
         this.$orderBy = `${this.propertiesToStrings(...params).join()} desc`;
         return this;
     }
 
-    public select<TValue>(...params: ((type: T) => TValue)[]): RequestBuilder<T> {
+    public select<TValue>(...params: ((type: T) => TValue)[]): this {
         this.$select = this.propertiesToStrings(...params).join();
         return this;
     }
 
-    public search(value: string): RequestBuilder<T> {
+    public search(value: string): this {
         this.$search = value;
         return this;
     }
 
     /** Creates the expand statement.  Can only be used once per request. **/
-    public expand<TValue>(param: (type: T) => TValue): RequestBuilder<T> {
-        this.$expand = Expression.subNameOf(param, "$expand");
+    public expand<TValue>(param: (type: T) => TValue): this {
+        this.$expand = Expression.subNameOf(param, '$expand');
 
         return this;
     }
 
-    public count(): RequestBuilder<T> {
-        this.$count = "true";
+    public count(): this {
+        this.$count = 'true';
         return this;
     }
 
@@ -136,47 +134,12 @@ export class RequestBuilder<T> {
         this.oDataString = oDataString;
     }
 
-    public get(): Observable<Response> {
-        let oDataSettings = this.createODataSettings();
-        let params = this.oDataString || this.createString(oDataSettings);
-
-        return this.http.get(`${this.url}?${params}`);
-    }
-
-    public post(data: any): Observable<Response> {
-        let oDataSettings = this.createODataSettings();
-        let params = this.oDataString || this.createString(oDataSettings);
-
-        return this.http.post(`${this.url}?${params}`, data);
-    }
-
-    public put(data: any): Observable<Response> {
-        let oDataSettings = this.createODataSettings();
-        let params = this.oDataString || this.createString(oDataSettings);
-
-        return this.http.put(`${this.url}?${params}`, data);
-    }
-
-    public patch(data: any): Observable<Response> {
-        let oDataSettings = this.createODataSettings();
-        let params = this.oDataString || this.createString(oDataSettings);
-
-        return this.http.patch(`${this.url}?${params}`, data);
-    }
-
-    public delete(): Observable<Response> {
-        let oDataSettings = this.createODataSettings();
-        let params = this.oDataString || this.createString(oDataSettings);
-
-        return this.http.delete(`${this.url}?${params}`);
-    }
-
-    private createODataSettings(): ODataSettings {
+    protected createODataSettings(): ODataSettings {
         let expression: ExpressionInterface;
 
-        for (let filter of this.$filters) {
+        this.$filters.forEach(filter => {
             expression = expression ? new And(expression, filter) : filter;
-        }
+        });
 
         let oDataSettings: ODataSettings = {};
 
@@ -219,14 +182,14 @@ export class RequestBuilder<T> {
         return oDataSettings;
     }
 
-    private createString(query: ODataSettings): string {
+    protected createString(query: ODataSettings): string {
         return Object.keys(query)
-            .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(query[key]))
-            .join("&")
-            .replace(/%20/g, "+");
+            .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(query[key]))
+            .join('&')
+            .replace(/%20/g, '+');
     }
 
-    private propertiesToStrings<TValue>(...params: ((type: T) => TValue)[]): string[] {
+    protected propertiesToStrings<TValue>(...params: ((type: T) => TValue)[]): string[] {
         let temp: string[] = [];
 
         for (let param of params) {
@@ -236,7 +199,7 @@ export class RequestBuilder<T> {
         return temp;
     }
 
-    private expressionToString(expression: ExpressionInterface) {
+    protected expressionToString(expression: ExpressionInterface): string {
         let visitor = new ODataVisitor();
 
         expression.accept(visitor);
