@@ -130,8 +130,10 @@ export class RequestBuilder<T> {
     }
 
     /** Adds an OData string created outside of the builder.  This would be used to integrate with a third party or create an OData query that is not currently supported. **/
-    public addODataString(oDataString: string): void {
+    public addODataString(oDataString: string): this {
         this.oDataString = oDataString;
+
+        return this;
     }
 
     protected createODataSettings(): ODataSettings {
