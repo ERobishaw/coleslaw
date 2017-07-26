@@ -1,6 +1,6 @@
 {
   "name": "@angry-yard/coleslaw",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "description": "Strongly typed OData library written in TypeScript",
   "repository": {
     "type": "git",
